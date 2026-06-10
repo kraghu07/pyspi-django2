@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: black;
+        }
+        .card {
+            background-color: rgba(24, 25, 26, 0.8);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+        h1 {
+            color: white;
+        }
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .product-card {
+            margin: 10px;
+            width: 250px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center" style="color: white;">Products</h1>
+        <div class="product-container">
+            {% for product in products %}
+            <div class="product-card card">
+                <a href="{% url 'product' product.slug %}">
+                    <img src="{{ product.image1.url }}" width="250px" height="300px" alt="{{ product.product_name }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.product_name }} | Color: {{ product.colour.colour_name }}</h5>
+                    <p class="card-text">Original price: {{ product.original_price }} Sale price: {{ product.sale_price }}</p>
+                    {% if product.size_options.exists %}
+                        {% for size in product.size_options.all %}
+                            <p class="card-text">{{ size.size_name }}: {{ size.qty_in_stock }} in stock</p>
+                            {% if size.qty_in_stock > 0 %}
+                                <a href="{% url 'add_to_cart' product.slug size.slug %}" class="btn btn-primary">Add to Cart ({{ size.size_name }})</a>
+                            {% else %}
+                                <p class="text-muted">Out of stock</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No sizes available for this product.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

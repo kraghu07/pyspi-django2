@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.product_name }}{% endblock %}
+
+{% block content %}
+<h1>{{ product.product_name }}</h1>
+<p><strong>Brand:</strong> {{ product.brand.brand_name }}</p>
+<p><strong>Category:</strong> {{ product.product_category.category_name }}</p>
+<p>{{ product.product_description }}</p>
+
+<div class="row">
+    {% for item in product.productitem_set.all %}
+        {% for image in item.productimage_set.all %}
+            <div class="col-md-3">
+                <img src="{{ image.image_filename.url }}" class="img-thumbnail" alt="Image of {{ product.product_name }}">
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+<hr>
+<h3>Product Variants</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Colour</th>
+            <th>Original Price</th>
+            <th>Sale Price</th>
+            <th>Available Sizes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in product.productitem_set.all %}
+        <tr>
+            <td>
+                {% if item.colour %}
+                    {{ item.colour.colour_name }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>${{ item.original_price }}</td>
+            <td>${{ item.sale_price }}</td>
+            <td>
+                {% for variation in item.productvariation_set.all %}
+                    {{ variation.size.size_name }} ({{ variation.qty_in_stock }} in stock) <br>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

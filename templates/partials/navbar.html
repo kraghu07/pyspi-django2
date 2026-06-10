@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .vid video {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: -1; /* Video stays behind other elements */
+      }
+
+      img {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .form-control {
+        background-color: transparent;
+        color: #fff;
+      }
+      form button.btn {
+        color: black;
+      }
+      .offcanvas {
+        background: #fff;
+        color: #000;
+      }
+      .dropdown-menu {
+        background: #fff;
+        color: #000;
+      }
+      .dropdown ul li a:hover {
+        background: #d60c0c;
+        color: #fff;
+      }
+      .navbar-toggler {
+        background: #fff;
+        color: #000;
+      }
+      .offcanvas-header {
+        background: red;
+        color: #fff;
+      }
+      /* .offcanvas-header button{
+          background: #fff;
+          color: #000;
+        } */
+
+      /* @media (min-aspect-ratio: 16/9) {
+            .vid video {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) {
+            .vid video {
+                height: 100%;
+                width: auto;
+            }
+        } */
+
+      .navbar {
+        background: transparent !important; /* Makes the navbar transparent */
+        z-index: 10; /* Ensures the navbar appears above the video */
+      }
+
+      .navbar a {
+        color: black !important; /* Makes navbar text white for better visibility */
+      }
+
+      .navbar-toggler-icon {
+        background-color: white; /* Adjust icon visibility if needed */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vid">
+      <!-- <video autoplay loop muted plays-inline>
+        <source src="{% static 'video/Falcon9.mp4' %}" type="video/mp4">
+    </video> -->
+      <img
+        src="{% static 'img/bg1.webp' %}"
+        alt="mountain"
+        class="moving-image"
+      />
+    </div>
+    <nav class="navbar bg-body-tertiary fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'base' %}"
+          ><h1><em>GROWTH<sup>X</sup></em></h1></a
+        >
+        <li class="nav-item list-unstyled">
+          <a class="nav-link" href="{% url 'products' %}">product</a>
+        </li>
+        <li class="nav-item list-unstyled">
+          <a class="nav-link" href="{% url 'cat_home' %}">categories</a>
+        </li>
+        <form class="d-flex mt-3" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+        <li class="nav-item list-unstyled">
+          <a class="nav-link" href="{% url 'login' %}">LogIn</a>
+        </li>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              <h6><em>GROWTH<sup>X</sup></em></h6>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'base' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">SignIn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Settings
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Orders</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Help</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+    <footer class="footer bg-body-tertiary mt-5">
+      <div class="container text-center">
+          <p class="text-muted">&copy; 2025 GROWTH<sup>X</sup>. All rights reserved.</p>
+      </div>
+  </footer>
+
+  </body>
+</html>
